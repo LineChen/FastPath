@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><!--<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.line.fastpath.DrawView
+        android:id="@+id/fin_draw_view"
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:background="#ececec" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50px" />
+
+    <com.line.fastpath.DrawView
+        android:id="@+id/recover_draw_view"
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:background="#94DBF7" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重置"
+        android:onClick="reset"/>
+
+</LinearLayout>
+
+    <!--</androidx.core.widget.NestedScrollView>-->
