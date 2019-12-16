@@ -73,10 +73,14 @@ public class DP {
             distance.add(d);
         }
         dmax = distance.get(0);
+        int indexMax = 0;
         for (int j = 1; j < distance.size(); j++) {
-            if (distance.get(j) > dmax)
+            if (distance.get(j) > dmax) {
                 dmax = distance.get(j);
+                indexMax = j;
+            }
         }
+        middle = points.get(m + 1 + indexMax);
 
         switchvalue = dmax > threshold;
 
@@ -86,14 +90,6 @@ public class DP {
                 points.get(i).setImportant(false);
             }
         } else {
-            for (int i = m + 1; i < n; i++) {
-                double blng = (points.get(i).y);
-                double blat = (points.get(i).x);
-                if ((Math.abs(A * (blng) + B
-                        * (blat) + C)
-                        / Math.sqrt(Math.pow(A, 2) + Math.pow(B, 2)) == dmax))
-                    middle = points.get(i);
-            }
             compress(points, threshold, from, middle);
             compress(points, threshold, middle, to);
         }
