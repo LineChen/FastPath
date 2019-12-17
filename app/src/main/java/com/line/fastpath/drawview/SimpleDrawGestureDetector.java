@@ -1,4 +1,4 @@
-package com.line.fastpath;
+package com.line.fastpath.drawview;
 
 import android.content.Context;
 import android.view.MotionEvent;
@@ -56,7 +56,7 @@ public class SimpleDrawGestureDetector {
                 }
 
                 if (!mIsWaitUpEvent) {
-                    if(!mIsFirstDrawOn) {
+                    if (!mIsFirstDrawOn) {
                         mIsFirstDrawOn = true;
                         v.removeCallbacks(mTimerForUpEvent);
                         this.iSimpleDrawGestureDetector.onFingerDraw(mLastX, mLastY, MotionEvent.ACTION_DOWN);

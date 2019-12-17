@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FastPath</string>
+    <string name="zip_result">原始点数量：%1$d，压缩后：%2$d\n</string>
 </resources>

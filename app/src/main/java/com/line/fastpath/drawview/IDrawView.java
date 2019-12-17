@@ -1,4 +1,4 @@
-package com.line.fastpath;
+package com.line.fastpath.drawview;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -16,8 +16,11 @@ public abstract class IDrawView extends View {
         super(context, attrs);
     }
 
-    public abstract void  paintDrawStart(float x, float y);
+    public abstract void paintDrawStart(float x, float y);
+
     public abstract void paintDrawMove(float x, float y);
+
     public abstract void init(int w, int h);
+
     public abstract void setPaintColor(String color);
 }

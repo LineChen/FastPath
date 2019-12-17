@@ -1,4 +1,4 @@
-package com.line.fastpath;
+package com.line.fastpath.drawview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -141,6 +141,12 @@ public class DrawView extends IDrawView implements View.OnTouchListener {
         }
         invalidate();
     }
+
+    public void paintKeyPoint(List<Point> keyPoint, int color) {
+        keyPointPaint.setColor(color);
+        paintKeyPoint(keyPoint);
+    }
+
 
     private float toMX(float f) {
         return f * mWidth;

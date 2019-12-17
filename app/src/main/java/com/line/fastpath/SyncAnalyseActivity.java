@@ -16,14 +16,19 @@ import com.line.lib.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by chenliu on 2019-12-16.
+ */
+public class SyncAnalyseActivity extends AppCompatActivity {
+
     private static final String TAG = "Fast-Path";
     private DrawView finDrawView;
     private DrawView recoverDrawView;
     private TextView tvResult;
 
-    FastPathAnalyse fastPathAnalyse = new FastPathAnalyse();
+    SyncPathAnalyse fastPathAnalyse = new SyncPathAnalyse();
     private List<Point> allPoints = new ArrayList<>();
+    private List<Point> zipPoints = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,32 @@ public class MainActivity extends AppCompatActivity {
         final int boardHeight = 600;
         finDrawView.init(boardWidth, boardHeight);
         recoverDrawView.init(boardWidth, boardHeight);
+
+        fastPathAnalyse.setAnalyseCallback(new SyncPathAnalyse.AnalyseCallback() {
+            @Override
+            public void onAnalyseComplete(List<Point> result) {
+                int size = result.size();
+                for (Point p : result) {
+                    switch (p.action) {
+                        case MotionEvent.ACTION_DOWN:
+                            recoverpaintDrawStart(p.x, p.y);
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            recoverpaintDrawMove(p.x, p.y);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            recoverpaintDrawMove(p.x, p.y);
+                            recoverDrawView.invalidate();
+                            break;
+                    }
+                }
+
+                if (size > 0) {
+                    zipPoints.addAll(result);
+                }
+            }
+        });
+
         SimpleDrawGestureDetector drawGestureDetector = new SimpleDrawGestureDetector(this);
         drawGestureDetector.setISimpleDrawGestureDetector(new SimpleDrawGestureDetector.ISimpleDrawGestureDetector() {
             @Override
@@ -43,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 x /= boardWidth;
                 y /= boardHeight;
                 Log.d(TAG, "onFingerDraw: " + String.format("(%f,%f) , motionEvent: %d", x, y, motionEvent));
-                fastPathAnalyse.recordPoint(x, y);
+                fastPathAnalyse.recordPoint(x, y, motionEvent);
                 allPoints.add(new Point(x, y, motionEvent));
                 if (motionEvent == MotionEvent.ACTION_DOWN) {
                     finDrawView.paintDrawStart(x, y);
@@ -51,22 +82,12 @@ public class MainActivity extends AppCompatActivity {
                     finDrawView.paintDrawMove(x, y);
                     finDrawView.invalidate();
                 } else if (motionEvent == MotionEvent.ACTION_UP) {
+                    tvResult.append(getString(R.string.zip_result, allPoints.size(), zipPoints.size()));
                     finDrawView.invalidate();
-                    List<Point> analyseResult = fastPathAnalyse.analyse();
-                    int size = analyseResult.size();
-                    if (size > 0) {
-                        Point pOrigin = analyseResult.get(0);
-                        recoverpaintDrawStart(pOrigin.x, pOrigin.y);
-                        for (int i = 1; i < size; i++) {
-                            Point pointF = analyseResult.get(i);
-                            recoverpaintDrawMove(pointF.x, pointF.y);
-                        }
-                        recoverDrawView.paintKeyPoint(analyseResult);
-                        finDrawView.paintKeyPoint(allPoints, Color.RED);
-                        tvResult.append(getString(R.string.zip_result, allPoints.size(), size));
-                        allPoints.clear();
-
-                    }
+                    finDrawView.paintKeyPoint(allPoints, Color.RED);
+                    allPoints.clear();
+                    recoverDrawView.paintKeyPoint(zipPoints);
+                    zipPoints.clear();
                 }
             }
 
