@@ -19,7 +19,13 @@ public class SyncPathAnalyse {
 
     private static final String TAG = "FastPathAnalyse";
 
-    private static final int DELAY = 300;
+    private static final int DELAY = 100;
+
+    /**
+     * 阀值
+     */
+    private static final float THRESHOLD = 0.003f;
+
 
     private Handler handler = new Handler();
 
@@ -42,36 +48,16 @@ public class SyncPathAnalyse {
         this.analyseCallback = analyseCallback;
     }
 
-    public List<Point> analyse(List<Point> data) {
+    public void analyse(List<Point> data) {
         long start = System.currentTimeMillis();
         Log.e(TAG, "================analyse start=================");
         Log.e(TAG, "result 原始大小:" + data.size());
-        List<Point> result = new ArrayList<>();
-//        if (pointList.size() > 2) {
-//            DT.Point pOrigin = pointList.get(0);
-//            result.add(pOrigin);
-//            int size = pointList.size();
-//            for (int i = 1; i < size; i++) {
-//                DT.Point pIndex = pointList.get(i);
-//                float slope = (pIndex.y - pOrigin.y) / (pIndex.x - pOrigin.x);
-//                Log.d(TAG, "analyse: slope = " + slope + pIndex.toString() + pOrigin.toString());
-//                if (slope > DELTA) {
-//                    result.add(pIndex);
-//                    pOrigin = pIndex;
-//                }
-//            }
-//            result.add(pointList.get(size - 1));
-//        }
-
-//        result = DT.douglasData(pointList);
-
-        result = DP.dpData(data, 0.002f);
+        List<Point> result = DP.dpData(data, THRESHOLD);
         if (analyseCallback != null) {
             analyseCallback.onAnalyseComplete(result);
         }
         Log.e(TAG, "================analyse end ================= " + (System.currentTimeMillis() - start) + "ms");
         Log.e(TAG, "result 原始大小:" + data.size() + ",压缩后大小:" + result.size());
-        return result;
     }
 
 
@@ -93,7 +79,7 @@ public class SyncPathAnalyse {
 
     private void startLoop() {
         handler.removeCallbacks(looperRunnable);
-        handler.post(looperRunnable);
+        handler.postDelayed(looperRunnable, DELAY);
     }
 
     private void stopLoop() {

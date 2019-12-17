@@ -1,6 +1,5 @@
 package com.line.fastpath;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -84,9 +83,9 @@ public class SyncAnalyseActivity extends AppCompatActivity {
                 } else if (motionEvent == MotionEvent.ACTION_UP) {
                     tvResult.append(getString(R.string.zip_result, allPoints.size(), zipPoints.size()));
                     finDrawView.invalidate();
-                    finDrawView.paintKeyPoint(allPoints, Color.RED);
+//                    finDrawView.paintKeyPoint(allPoints, Color.RED);
                     allPoints.clear();
-                    recoverDrawView.paintKeyPoint(zipPoints);
+//                    recoverDrawView.paintKeyPoint(zipPoints);
                     zipPoints.clear();
                 }
             }
