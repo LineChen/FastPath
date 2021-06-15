@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SyncAnalyseActivity">
+        <activity android:name=".SyncAnalyseActivity"
+        android:label="sync">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

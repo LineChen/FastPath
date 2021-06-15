@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.line.fastpath.drawview.DrawView;
+import com.line.fastpath.drawview.DrawViewSleek;
 import com.line.fastpath.drawview.SimpleDrawGestureDetector;
 import com.line.lib.Point;
 
@@ -21,8 +22,8 @@ import java.util.List;
 public class SyncAnalyseActivity extends AppCompatActivity {
 
     private static final String TAG = "Fast-Path";
-    private DrawView finDrawView;
-    private DrawView recoverDrawView;
+    private DrawViewSleek finDrawView;
+    private DrawViewSleek recoverDrawView;
     private TextView tvResult;
 
     SyncPathAnalyse fastPathAnalyse = new SyncPathAnalyse();
@@ -32,7 +33,7 @@ public class SyncAnalyseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_sync);
         finDrawView = findViewById(R.id.fin_draw_view);
         recoverDrawView = findViewById(R.id.recover_draw_view);
         tvResult = findViewById(R.id.tv_result);

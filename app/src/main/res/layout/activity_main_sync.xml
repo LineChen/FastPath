@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><!--<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.line.fastpath.drawview.DrawViewSleek
+        android:id="@+id/fin_draw_view"
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:background="#ececec" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10px" />
+
+    <com.line.fastpath.drawview.DrawViewSleek
+        android:id="@+id/recover_draw_view"
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:background="#94DBF7" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="reset"
+        android:text="重置" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="压缩信息:"
+        android:textColor="@color/colorPrimary" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorPrimary"
+            tools:text="原始点数量200，压缩后：60" />
+    </ScrollView>
+
+</LinearLayout>
+
+    <!--</androidx.core.widget.NestedScrollView>-->
