@@ -12,7 +12,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.line.fastpath.drawview.DrawViewSleek
+    <com.line.fastpath.drawview.brush.DrawViewBrush
         android:id="@+id/fin_draw_view"
         android:layout_width="match_parent"
         android:layout_height="400px"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="10px" />
 
-    <com.line.fastpath.drawview.DrawViewSleek
+    <com.line.fastpath.drawview.sleek.DrawViewSleek
         android:id="@+id/recover_draw_view"
         android:layout_width="match_parent"
         android:layout_height="400px"

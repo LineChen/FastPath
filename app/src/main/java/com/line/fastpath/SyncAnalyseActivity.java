@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.line.fastpath.drawview.DrawView;
-import com.line.fastpath.drawview.DrawViewSleek;
+import com.line.fastpath.drawview.brush.DrawViewBrush;
+import com.line.fastpath.drawview.sleek.DrawViewSleek;
 import com.line.fastpath.drawview.SimpleDrawGestureDetector;
 import com.line.lib.Point;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class SyncAnalyseActivity extends AppCompatActivity {
 
     private static final String TAG = "Fast-Path";
-    private DrawViewSleek finDrawView;
+    private DrawViewBrush finDrawView;
     private DrawViewSleek recoverDrawView;
     private TextView tvResult;
 

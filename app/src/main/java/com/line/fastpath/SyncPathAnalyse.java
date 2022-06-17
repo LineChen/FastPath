@@ -24,7 +24,7 @@ public class SyncPathAnalyse {
     /**
      * 阀值
      */
-    private static final float THRESHOLD = 0.003f;
+    private static final float THRESHOLD = 0.000f;
 
 
     private Handler handler = new Handler();

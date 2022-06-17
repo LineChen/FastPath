@@ -1,5 +1,6 @@
 package com.line.fastpath;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         finDrawView = findViewById(R.id.fin_draw_view);
         recoverDrawView = findViewById(R.id.recover_draw_view);
         tvResult = findViewById(R.id.tv_result);
+
         final int boardWidth = getResources().getDisplayMetrics().widthPixels;
         final int boardHeight = 600;
         finDrawView.init(boardWidth, boardHeight);
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         });
         finDrawView.setSimpleDrawGestureDetector(drawGestureDetector);
         finDrawView.setOnTouchListener(finDrawView);
+
     }
 
 

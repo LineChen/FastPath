@@ -1,10 +1,13 @@
-package com.line.fastpath.drawview;
+package com.line.fastpath.drawview.brush;
 
 import android.content.Context;
 import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import com.line.fastpath.drawview.IDrawView;
+import com.line.fastpath.drawview.SimpleDrawGestureDetector;
+import com.line.fastpath.drawview.brush.paint.PercentPaint;
 import com.line.lib.Point;
 
 import java.util.List;
@@ -15,12 +18,12 @@ import java.util.List;
  * <p>
  * 回放数据 白板绘制部分
  */
-public class DrawViewSleek extends IDrawView implements View.OnTouchListener {
+public class DrawViewBrush extends IDrawView implements View.OnTouchListener {
     public static final String TAG = "ERASER_TAG";
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
-    private Paint penPaint; // 当前的笔
+    private PercentPaint penPaint; // 当前的笔
     private int paintColor = Color.rgb(100, 100, 100); // 当前笔的颜色
     private static final int PAINT_SIZE = 2;
     private int mWidth;
@@ -32,15 +35,15 @@ public class DrawViewSleek extends IDrawView implements View.OnTouchListener {
 
     private SimpleDrawGestureDetector simpleDrawGestureDetector; // 手势书写
 
-    public DrawViewSleek(Context context) {
+    public DrawViewBrush(Context context) {
         this(context, null);
     }
 
-    public DrawViewSleek(Context context, AttributeSet attrs) {
+    public DrawViewBrush(Context context, AttributeSet attrs) {
         super(context, attrs);
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-        penPaint = new Paint();
+        penPaint = new PercentPaint(1);
         setDrawPaint(penPaint, PAINT_SIZE);
         penPaint.setColor(paintColor);
 
@@ -119,11 +122,15 @@ public class DrawViewSleek extends IDrawView implements View.OnTouchListener {
 
     private Path currentPath = new Path();
 
+    BrushPath brushPath;
+
+
     public void paintDrawStart(float x, float y) {
         lastX = toMX(x);
         lastY = toMY(y);
         currentPath.reset();
         currentPath.moveTo(lastX, lastY);
+        brushPath = new BrushPath(0);
     }
 
     public void paintDrawMove(float x, float y) {
@@ -132,6 +139,11 @@ public class DrawViewSleek extends IDrawView implements View.OnTouchListener {
 //        mCanvas.drawLine(lastX, lastY, toMX, stopY, penPaint);
         currentPath.quadTo((lastX + toMX) / 2, (lastY + stopY) / 2, toMX, stopY);
         mCanvas.drawPath(currentPath, penPaint);
+
+        if (brushPath != null) {
+            brushPath.eventTo(toMX, stopY, MotionEvent.ACTION_MOVE, 0);
+            brushPath.drawNewest(mCanvas, penPaint);
+        }
 
         lastX = toMX;
         lastY = stopY;
